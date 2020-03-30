@@ -6,7 +6,7 @@ export class Score {
     @PrimaryGeneratedColumn()
     score_id!: number;
 
-    @ManyToOne(type => Composer)
+    @ManyToOne(type => Composer, composer => composer.scores)
     @JoinColumn({
         name: "composer_id",
         referencedColumnName: "composer_id"

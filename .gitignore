@@ -117,3 +117,6 @@ temp/
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
+
+### Custom ###
+src/routes

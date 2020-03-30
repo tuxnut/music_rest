@@ -4,7 +4,6 @@ import { Score } from "./Score";
 @Entity()
 export class Composer {
     @PrimaryGeneratedColumn()
-    @OneToMany(type => Score, musicScore => musicScore.composer)
     composer_id!: number;
 
     @Column()
@@ -24,4 +23,7 @@ export class Composer {
 
     @Column({ nullable: true })
     style!: string;
+    
+    @OneToMany(type => Score, musicScore => musicScore.composer)
+    scores!: Score[];
 }
