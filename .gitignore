@@ -120,3 +120,4 @@ temp/
 ### Custom ###
 src/routes
 src/api
+src/cert
