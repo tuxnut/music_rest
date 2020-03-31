@@ -49,6 +49,7 @@ export class MusicScoreController extends Controller {
         }
     }
     
+    @Delete('/{title}')
     public async deleteMusicScore(title: string) {
         try {
             const results = await getRepository(Score).delete({ title: title });

@@ -107,7 +107,6 @@ tmp/
 temp/
 
 ### VisualStudioCode ###
-.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -120,3 +119,4 @@ temp/
 
 ### Custom ###
 src/routes
+src/api

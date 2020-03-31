@@ -3,7 +3,7 @@
       "basePath": "/",
       "entryFile": "./src/index.ts",
       "specVersion": 3,
-      "outputDirectory": "./api",
+      "outputDirectory": "./src/api",
       "controllerPathGlobs": [
         "./src/controllers/**/*controller.ts"
       ]
