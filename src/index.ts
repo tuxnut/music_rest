@@ -14,10 +14,10 @@ createConnection(databaseConfiguration).then(async (_connection: Connection) => 
 
     console.log("Connected to Database !")
 
-    const credentials = { 
-        key: fs.readFileSync("./src/cert/key.pem"), 
-        cert: fs.readFileSync("./src/cert/cert.pem") 
-    };
+    // const credentials = { 
+    //     key: fs.readFileSync("./src/cert/key.pem"), 
+    //     cert: fs.readFileSync("./src/cert/cert.pem") 
+    // };
 
     const app = express();
     app.use(bodyParser.json());
@@ -27,7 +27,7 @@ createConnection(databaseConfiguration).then(async (_connection: Connection) => 
 
     RegisterRoutes(app);
 
-    const httpsServer: https.Server = https.createServer(credentials, app);
+    // const httpsServer: https.Server = https.createServer(credentials, app);
 
     // Replace app by the httpsServer when certificates are verified
     app.listen(port, () => {
