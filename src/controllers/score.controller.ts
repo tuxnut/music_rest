@@ -6,15 +6,24 @@ import { getRepository, DeepPartial } from "typeorm";
 export class MusicScoreController extends Controller {
     @Get('/')
     public async getAllMusicScores() {
-        const musicScores: Score[] = await getRepository(Score).find();
+        const musicScores = await getRepository(Score)
+                .createQueryBuilder("s")
+                .leftJoinAndSelect("s.composer", "c")
+                .getMany();
+
         return { musicScores };
     }
     
     @Get('/{title}')
     public async getMusicScoreByTitle(title: string) {
         try {
-            const musicScore: Score | undefined = await getRepository(Score).findOneOrFail({ title: title });
-            return { musicScore: musicScore };
+            const musicScore: Score | undefined = await getRepository(Score)
+                .createQueryBuilder("s")
+                .leftJoinAndSelect("s.composer", "c")
+                .where("s.title = :title", { title: title })
+                .getOne();
+
+            return { musicScore };
         } catch (error) {
             console.error(error);
             this.setStatus(404);
