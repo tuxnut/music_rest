@@ -1,6 +1,7 @@
-import { Controller, Get, Route, Post, BodyProp, Put, Delete } from "tsoa";
+import { Controller, Get, Route, Post, Put, Delete, Body } from "tsoa";
 import { Composer } from "../entities/Composer";
-import { getRepository, DeepPartial } from "typeorm";
+import { getRepository } from "typeorm";
+import { ComposerCreationRequest } from "../description/ComposerCreationRequest";
 
 @Route('/composers')
 export class ComposerController extends Controller {
@@ -42,7 +43,7 @@ export class ComposerController extends Controller {
     }
     
     @Post('/')
-    public async saveComposer(@BodyProp('composer') composer: DeepPartial<Composer>) {
+    public async saveComposer(@Body() composer: ComposerCreationRequest) {
         try {
             const composerModel = getRepository(Composer).create(composer);
             const results = await getRepository(Composer).save(composerModel);
@@ -55,7 +56,7 @@ export class ComposerController extends Controller {
     }
     
     @Put('/{name}')
-    public async updateComposer(name: string, @BodyProp('composer') composer: DeepPartial<Composer>) {
+    public async updateComposer(name: string, @Body() composer: ComposerCreationRequest) {
         try {
             const composerModel: Composer | undefined = await getRepository(Composer).findOneOrFail({ commonname: name });
             getRepository(Composer).merge(composerModel, composer);

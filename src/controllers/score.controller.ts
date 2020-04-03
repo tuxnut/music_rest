@@ -1,6 +1,8 @@
-import { Controller, Get, Route, Post, BodyProp, Put, Delete } from "tsoa";
+import { Controller, Get, Route, Post, BodyProp, Put, Delete, Body } from "tsoa";
 import { Score } from "../entities/Score";
 import { getRepository, DeepPartial } from "typeorm";
+import { ScoreCreationRequest } from "../description/ScoreCreationRequest";
+import { Composer } from "../entities/Composer";
 
 @Route('musicscores')
 export class MusicScoreController extends Controller {
@@ -32,9 +34,10 @@ export class MusicScoreController extends Controller {
     }
     
     @Post('/')
-    public async saveMusicScore(@BodyProp('musicscore') musicscore: DeepPartial<Score>) {
+    public async saveMusicScore(@Body() musicscore: ScoreCreationRequest) {
         try {
-            const musicScoreModel = getRepository(Score).create(musicscore);
+            const composer: Composer | undefined = await getRepository(Composer).findOneOrFail({ commonname: musicscore.composerName });
+            const musicScoreModel = getRepository(Score).create({...musicscore, composer: composer});
             const results = await getRepository(Score).save(musicScoreModel);
             return results;
         } catch (error) {
@@ -45,7 +48,7 @@ export class MusicScoreController extends Controller {
     }
     
     @Put('/{title}')
-    public async updateMusicScore(title: string, @BodyProp('musicscore') musicscore: DeepPartial<Score>) {
+    public async updateMusicScore(title: string, @Body() musicscore: ScoreCreationRequest) {
         try {
             const musicScoreModel: Score | undefined = await getRepository(Score).findOneOrFail({ title: title });
             getRepository(Score).merge(musicScoreModel, musicscore);
