@@ -1,6 +1,6 @@
-import { Controller, Get, Route, Post, BodyProp, Put, Delete, Body } from "tsoa";
+import { Controller, Get, Route, Post, Put, Delete, Body } from "tsoa";
 import { Score } from "../entities/Score";
-import { getRepository, DeepPartial } from "typeorm";
+import { getRepository } from "typeorm";
 import { ScoreCreationRequest } from "../description/ScoreCreationRequest";
 import { Composer } from "../entities/Composer";
 
